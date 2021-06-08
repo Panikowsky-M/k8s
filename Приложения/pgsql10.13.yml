@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: pgsql-db
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pgsql-db
+  template:
+    metadata:
+      labels:
+        app: pgsql-db
+    spec:
+      containers:
+      - image: postgres:10.13
+        name: pgsql
+        env:
+        - name: POSTGRES_PASSWORD
+          value: superPass
+        ports:
+        - containerPort: 5432
+        resources:
+          limits:
+            cpu: 90m
+            memory: 72Mi
+          requests:
+            cpu: 74m
+            memory: 45Mi

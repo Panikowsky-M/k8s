@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: redmine
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: redmine
+  template:
+    metadata:
+      labels:
+        app: redmine
+    spec:
+      containers:
+      - image: redmine:4.1.1
+        name: redmine
+        env:
+        - name: REDMINE_DB_POSTGRES
+          value: system
+        - name: REDMINE_DB_USERNAME
+          value: root
+        - name: REDMINE_DB_PASSWORD
+          value: superPass
+        - name: REDMINE_DB_DATABASE
+          value: rdmn
+        - name: REDMINE_SECRET_KEY_BASE
+          valueFrom:
+            secretKeyRef:
+              name: rdmn-db
+              key: k1
+        ports:
+        - containerPort: 5432
+        resources:
+          limits:
+            cpu: 90m
+            memory: 72Mi
+          requests:
+            cpu: 74m
+            memory: 45Mi

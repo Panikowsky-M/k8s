@@ -1,0 +1,12 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: new-ingr
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: new-svc
+          servicePort: 80
