@@ -1,0 +1,17 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pvc-tst-pod
+spec:
+  containers:
+    - name: pvc-tst
+      image: alpine
+      volumeMounts:
+      - name: data
+        mountPath: /mnt
+      command: ["/bin/sh"]
+      args: ["-c","sleep 500000"]
+  volumes:
+  - name: data
+    persistentVolumeClaim:
+      claimName: int-storage
