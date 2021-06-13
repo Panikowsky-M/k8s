@@ -20,18 +20,21 @@ spec:
         - name: REDMINE_DB_POSTGRES
           value: system
         - name: REDMINE_DB_USERNAME
-          value: root
-        - name: REDMINE_DB_PASSWORD
-          value: superPass
+          value: testuser
         - name: REDMINE_DB_DATABASE
           value: rdmn
+        - name: REDMINE_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: pass
         - name: REDMINE_SECRET_KEY_BASE
           valueFrom:
             secretKeyRef:
               name: rdmn-db
-              key: k1
+              key: pass
         ports:
-        - containerPort: 5432
+        - containerPort: 3000
         resources:
           limits:
             cpu: 90m
